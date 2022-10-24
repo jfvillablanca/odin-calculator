@@ -6,22 +6,28 @@ html {
   --darkgruv-bg: #282828;
   --darkgrub-fg: #ebdbb2;
   --darkgruv-red: #cc241d;
+  --darkgruv-red-h: #fb4934;
   --darkgruv-green: #98971a;
+  --darkgruv-green-h: #b8bb26;
   --darkgruv-yellow: #d79921;
+  --darkgruv-yellow-h: #b57614;
   --darkgruv-blue: #458588;
   --darkgruv-purple: #b16286;
   --darkgruv-aqua: #689d6a;
   --darkgruv-gray: #a89984;
+  --darkgruv-orange: #d65d0e;
+  --darkgruv-orange-h: #fe8019;
 
   background-color: var(--darkgruv-bg-h);
 }
 
 * {
-    border: 1px solid palevioletred;  
+    /* border: 1px solid palevioletred;   */
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
-    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'BlexMono Nerd Font','Courier New', monospace;
+    /* font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     color: var(--darkgrub-fg);
 }
 
@@ -39,18 +45,27 @@ body {
   background-color: var(--darkgruv-bg);
   border: 2px solid var(--darkgruv-yellow);  
   border-radius: 5px;
+  font-size: 1.5rem;
+
+  user-select: none;
 }
 
 .calc-viewport {
-  height: 20%;
-  width: 100%;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
 
-  text-align: end;
-  font-size: 2em;
+  height: 25%;
+  width: 100%;
+  margin-bottom: 0.25em;
+  margin-top: 0.25em;
+  padding: 4px;
+  padding-left: 0.5em;
+  padding-right: 0.2em;
+  border-radius: 5px;
+  border: 2px solid var(--darkgruv-yellow-h);  
+
+  font-size: 2.2rem;
 }
 
 .calc-buttons {
@@ -67,16 +82,50 @@ body {
 }
 
 .button {
-  min-height: 30px;
+  min-height: 1.5em;
   min-width: 25%;
   padding: 0.25em;
   flex: 1;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   text-align: center;
   border-radius: 5px;
-  border: 1px solid var(--darkgruv-yellow);  
+  border: 1px solid var(--darkgruv-yellow-h);  
+
+  transition: background-color 0.2s, border 0.2s, color 0.2s;
+}
+
+.button:hover {
+  background-color: var(--darkgruv-yellow);
+  border: 1px solid var(--darkgruv-yellow);
+  color: var(--darkgruv-bg);
+}
+
+
+.clear {
+  background-color: var(--darkgruv-orange);
+  border: 1px solid var(--darkgruv-orange);
+}
+
+.clear:hover {
+  /* background-color: var(--darkgruv-gray); */
+  /* border: 1px solid var(--darkgruv-gray); */
+  background-color: var(--darkgruv-orange-h);
+  border: 1px solid var(--darkgruv-orange-h);
+  color: var(--darkgruv-bg);
 }
 
 .equalsign {
+  background-color: var(--darkgruv-yellow);
+  border: 1px solid var(--darkgruv-yellow);
   flex-basis: 50%;
+}
+
+.equalsign:hover {
+  background-color: var(--darkgruv-green-h);
+  border: 1px solid var(--darkgruv-green-h);
+  color: var(--darkgruv-bg);
 }
