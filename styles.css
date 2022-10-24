@@ -98,7 +98,7 @@ body {
   transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
-.button:hover {
+.button:hover { /*hover pseudo class is temporary, behavior should be on click*/
   background-color: var(--darkgruv-yellow);
   border: 1px solid var(--darkgruv-yellow);
   color: var(--darkgruv-bg);
