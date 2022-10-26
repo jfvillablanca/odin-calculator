@@ -38,7 +38,7 @@ const registerKey = function(e) {
   const keyZero = document.querySelector(".zero");
   const keyEqualSign = document.querySelector(".equalsign");
   
-  console.log(`${e.key}`);
+  // console.log(`${e.key}`);
   if (e.key === "Backspace"){ keyBackspace.classList.add('clicked'); }
   if (e.key === "/"){ keyDivision.classList.add('clicked'); }
   if (e.key === "7"){ keySeven.classList.add('clicked'); }
@@ -59,6 +59,7 @@ const registerKey = function(e) {
 };
 
 const removeTransition = function(e) {
+  // console.log(e.propertyName);
   e.target.classList.remove('clicked');
 }
 
