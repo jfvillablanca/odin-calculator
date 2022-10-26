@@ -14,9 +14,21 @@ const multiply = function(a,b) {
     return a*b;
 };
 
+const updateViewport = function(userInput,resetState) {
+  viewport = document.querySelector('.calc-viewport');
+  if (resetState) { viewport.innerText = "0";}
+  else {
+    viewport.innerText = "";
+    viewport.innerText = `${userInput}`;
+  }
+}
+
 const registerClick = function(e) {
-  console.log(e.target);
+  let resetState = true;
+  console.log(e.target.innerText); //DIAGNOSTICS
   e.target.classList.add('clicked');
+  if (e.target.innerText !== "C") { resetState = false;}
+  updateViewport(e.target.innerText,resetState)
 }
 
 const removeTransition = function(e) {
