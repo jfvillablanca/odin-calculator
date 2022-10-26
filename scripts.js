@@ -28,20 +28,32 @@ const updateViewport = function(userInput,resetState) {
     }
     else {
       viewport.innerText = viewportBuffer.substring(0,viewportBuffer.length-1); 
-      console.log(`innertext: ${viewport.innerText}, buffer: ${viewportBuffer} `); //DIAGNOSTICS
       return;
     }
   }
 
-  if (viewportBuffer === "0") { //Removes leading zero for non decimal
-    if (userInput !== ".") {
-      viewportBuffer = "";
-      console.log(`nononono innertext: ${viewport.innerText}, buffer: ${viewportBuffer} `); //DIAGNOSTICS
-    }
+  if (viewportBuffer === "0" || viewportBuffer === "-0") { //Removes leading zero for non decimal and allows plusminus even with resetstate
     if (userInput === "±") {
-      viewport.innerText = "-0";
-      console.log(`memememe innertext: ${viewport.innerText}, buffer: ${viewportBuffer} `); //DIAGNOSTICS
-      return;
+      if (viewportBuffer === "0"){
+        console.log(`hi buffer: ${viewportBuffer}`)
+        viewport.innerText = "-0";
+        return;
+      }
+      if (viewportBuffer === "-0"){
+        console.log(`hello buffer: ${viewportBuffer}`)
+        viewport.innerText = "0";
+        return;
+      }
+    }
+    if (userInput !== ".") {
+      if (viewportBuffer === "0"){
+        viewportBuffer = "";
+        console.log("hwas")
+      }
+      if (viewportBuffer === "-0"){
+        viewportBuffer = "-";
+        console.log("asjdnwn")
+      }
     }
   }
 
