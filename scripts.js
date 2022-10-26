@@ -22,11 +22,16 @@ const updateViewport = function(userInput,resetState) {
   viewport = document.querySelector('.calc-viewport');
   let viewportBuffer = viewport.innerText;
   if (userInput === "←") { 
-    if (viewportBuffer.length === 1) { 
+    console.log(`hi buffer: ${viewportBuffer} intext: ${viewport.innerText}`)
+    if (viewportBuffer.length === 1 || (viewportBuffer.length === 2 && viewportBuffer.startsWith("-"))) { 
       viewport.innerText = "0";
       return;
     }
     else {
+      if (viewportBuffer === "-") {
+        viewport.innerText = "0";
+        return;
+      }
       viewport.innerText = viewportBuffer.substring(0,viewportBuffer.length-1); 
       return;
     }
@@ -35,12 +40,10 @@ const updateViewport = function(userInput,resetState) {
   if (viewportBuffer === "0" || viewportBuffer === "-0") { //Removes leading zero for non decimal and allows plusminus even with resetstate
     if (userInput === "±") {
       if (viewportBuffer === "0"){
-        console.log(`hi buffer: ${viewportBuffer}`)
         viewport.innerText = "-0";
         return;
       }
       if (viewportBuffer === "-0"){
-        console.log(`hello buffer: ${viewportBuffer}`)
         viewport.innerText = "0";
         return;
       }
@@ -48,11 +51,9 @@ const updateViewport = function(userInput,resetState) {
     if (userInput !== ".") {
       if (viewportBuffer === "0"){
         viewportBuffer = "";
-        console.log("hwas")
       }
       if (viewportBuffer === "-0"){
         viewportBuffer = "-";
-        console.log("asjdnwn")
       }
     }
   }
