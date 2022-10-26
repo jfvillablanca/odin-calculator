@@ -1,3 +1,7 @@
+/***********************************************************************/
+// Visual Bug
+// - .clicked Class remains if mouse/keyboard is clicked too fast. Might need to proactively remove class instead of waiting for transitionend event
+/***********************************************************************/
 const add = function(a,b) {
     return a+b;
 };
@@ -28,9 +32,8 @@ const updateViewport = function(userInput,resetState) {
       return;
     }
   }
-  // else { viewportBuffer = viewport.innerText; }
 
-  if (viewportBuffer === "0") { viewportBuffer = ""; }
+  if (viewportBuffer === "0" && userInput !== ".") { viewportBuffer = ""; } //Removes leading zero for non decimal
   if (resetState) { viewport.innerText = "0"; }
   else {
     if (userInput === "±") { console.log("plusminus"); }
@@ -38,13 +41,12 @@ const updateViewport = function(userInput,resetState) {
     else if (userInput === "×") { console.log("multiply"); }
     else if (userInput === "-") { console.log("subtract"); }
     else if (userInput === "+") { console.log("add"); }
-    else if (viewportBuffer.length !== 15 &&
-              userInput !== "←") { 
+    else if (viewportBuffer.includes(".") && userInput === ".") { viewport.innerText = viewportBuffer; }
+    else if (viewportBuffer.length !== 15) { 
       viewport.innerText = `${viewportBuffer}${userInput}`; 
     }
   }
   console.log(viewportBuffer); //DIAGNOSTICS
-  // viewport.innerText = viewportBuffer;
 }
 
 const registerClick = function(e) {
