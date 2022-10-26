@@ -98,7 +98,7 @@ body {
   transition: background-color 0.2s, border 0.2s, color 0.2s;
 }
 
-.button:hover {
+.button.clicked {
   background-color: var(--darkgruv-yellow);
   border: 1px solid var(--darkgruv-yellow);
   color: var(--darkgruv-bg);
@@ -110,7 +110,7 @@ body {
   border: 1px solid var(--darkgruv-orange);
 }
 
-.clear:hover {
+.clear.clicked {
   /* background-color: var(--darkgruv-gray); */
   /* border: 1px solid var(--darkgruv-gray); */
   background-color: var(--darkgruv-orange-h);
@@ -124,7 +124,7 @@ body {
   flex-basis: 50%;
 }
 
-.equalsign:hover {
+.equalsign.clicked {
   background-color: var(--darkgruv-green-h);
   border: 1px solid var(--darkgruv-green-h);
   color: var(--darkgruv-bg);
