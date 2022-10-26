@@ -16,10 +16,13 @@ const multiply = function(a,b) {
 
 const updateViewport = function(userInput,resetState) {
   viewport = document.querySelector('.calc-viewport');
-  if (resetState) { viewport.innerText = "0";}
+  let viewportBuffer = viewport.innerText;
+  if (viewportBuffer === "0") { viewportBuffer = ""; }
+  console.log(viewportBuffer); //DIAGNOSTICS
+  if (resetState) { viewport.innerText = "0"; }
   else {
-    viewport.innerText = "";
-    viewport.innerText = `${userInput}`;
+    // viewport.innerText = "";
+    viewport.innerText = `${viewportBuffer}${userInput}`;
   }
 }
 
