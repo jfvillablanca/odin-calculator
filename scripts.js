@@ -33,20 +33,56 @@ const updateViewport = function(userInput,resetState) {
     }
   }
 
-  if (viewportBuffer === "0" && userInput !== ".") { viewportBuffer = ""; } //Removes leading zero for non decimal
-  if (resetState) { viewport.innerText = "0"; }
-  else {
-    if (userInput === "±") { console.log("plusminus"); }
-    else if (userInput === "÷") { console.log("divide"); }
-    else if (userInput === "×") { console.log("multiply"); }
-    else if (userInput === "-") { console.log("subtract"); }
-    else if (userInput === "+") { console.log("add"); }
-    else if (viewportBuffer.includes(".") && userInput === ".") { viewport.innerText = viewportBuffer; }
-    else if (viewportBuffer.length !== 15) { 
-      viewport.innerText = `${viewportBuffer}${userInput}`; 
+  if (viewportBuffer === "0") { //Removes leading zero for non decimal
+    if (userInput !== ".") {
+      viewportBuffer = "";
+      console.log(`nononono innertext: ${viewport.innerText}, buffer: ${viewportBuffer} `); //DIAGNOSTICS
+    }
+    if (userInput === "±") {
+      viewport.innerText = "-0";
+      console.log(`memememe innertext: ${viewport.innerText}, buffer: ${viewportBuffer} `); //DIAGNOSTICS
+      return;
     }
   }
-  console.log(viewportBuffer); //DIAGNOSTICS
+
+  if (resetState) { 
+    viewport.innerText = "0";
+    return;
+  }
+  else {
+    if (userInput === "±") { 
+      (viewportBuffer.startsWith("-")) 
+        ? viewport.innerText = viewportBuffer.substring(1,viewportBuffer.length)
+        : viewport.innerText = `-${viewportBuffer}`;
+      // console.log(`(after) innertext: ${viewport.innerText} len ${viewport.innerText.length}, buffer: ${viewportBuffer} len ${viewportBuffer.length}`); //DIAGNOSTICS
+      return;
+    }
+    else if (userInput === "÷") {
+      console.log("divide");
+      return;
+    }
+    else if (userInput === "×") { 
+      console.log("multiply");
+      return;
+    }
+    else if (userInput === "-") {
+      console.log("subtract");
+      return;
+    }
+    else if (userInput === "+") {
+      console.log("add"); 
+      return;
+    }
+
+    if (viewportBuffer.includes(".") && userInput === ".") { //Ensure single decimal point in buffer
+      viewport.innerText = viewportBuffer;
+      return;
+    }
+    if (viewportBuffer.length !== 15) { //Prevents text overflow. Text will still overflow for small screens; the value is arbitrary and does not follow responsive design 
+      viewport.innerText = `${viewportBuffer}${userInput}`; 
+      return;
+    }
+  }
 }
 
 const registerClick = function(e) {
