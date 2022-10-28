@@ -9,6 +9,8 @@ html {
   --darkgruv-red-h: #fb4934;
   --darkgruv-green: #98971a;
   --darkgruv-green-h: #b8bb26;
+  --lightgruv-green: #98971a;
+  --lightgruv-green-h: #79740e;
   --darkgruv-yellow: #d79921;
   --darkgruv-yellow-h: #b57614;
   --darkgruv-blue: #458588;
@@ -95,10 +97,10 @@ body {
   border-radius: 5px;
   border: 1px solid var(--darkgruv-yellow-h);  
 
-  transition: background-color 0.2s, border 0.2s, color 0.2s;
+  transition: background-color 0.1s, border 0.1s, color 0.1s;
 }
 
-.button.clicked {
+.button.clicked { 
   background-color: var(--darkgruv-yellow);
   border: 1px solid var(--darkgruv-yellow);
   color: var(--darkgruv-bg);
@@ -119,8 +121,8 @@ body {
 }
 
 .equalsign {
-  background-color: var(--darkgruv-yellow);
-  border: 1px solid var(--darkgruv-yellow);
+  background-color: var(--lightgruv-green-h);
+  border: 1px solid var(--lightgruv-green-h);
   flex-basis: 50%;
 }
 
