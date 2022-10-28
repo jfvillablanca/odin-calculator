@@ -1,32 +1,46 @@
 /***********************************************************************/
 // Visual Bug
 // - .clicked Class remains if mouse/keyboard is clicked too fast. Might need to proactively remove class instead of waiting for transitionend event
+// Feature/Bug
+// - Picking a new operator would operate instead of swapping to the new operator
 /***********************************************************************/
 (function(){
   let resultBuffer = 0; //Store current operand in the viewport here
-  let currentOperation = "+"; // Since 0 is the initial value, the initial number input will be ADDED to 0, and is, technically, the first operation
+  let currentOperator = "+"; // Since 0 is the initial value, the initial number input will be ADDED to 0, and is, technically, the first operation
+  let resetState = true;
+  let displayAfterOperate = false;
+  viewport = document.querySelector('.calc-viewport');
 
-  const operate = function (operation, nextNum){
-    console.log(`First Operand: ${resultBuffer}, Operation: ${operation}, Second Operand: ${nextNum}`);
+  const reset = function(){
+    resetState = true; //reset to fresh operation, clear buffer, aka CE
+    resultBuffer = 0;
+    currentOperation = "+"; 
+    viewport.innerText = "0";
+  }
+
+  const operate = function (operation, op1, op2){
+    console.log(`First Operand: ${op1}, Operation: ${operation}, Second Operand: ${op2}`);
     if (operation === "+"){
-      resultBuffer += nextNum;
+      resultBuffer = op1 + op2;
     }
     else if (operation === "-"){
-      resultBuffer -= nextNum;
+      resultBuffer = op1 - op2;
     }
     else if (operation === "×"){
-      resultBuffer *= nextNum;
+      resultBuffer = op1 * op2;
     }
     else if (operation === "÷"){
-      resultbuffer /= nextNum;
+      resultBuffer = op1 / op2;
     }
     console.log(`Operation Result: ${resultBuffer}`);
+    viewport.innerText = resultBuffer.toString();
+    displayAfterOperate = true;
     return 0;
   };
 
-  const updateViewport = function(userInput,resetState) {
-    viewport = document.querySelector('.calc-viewport');
-    let viewportBuffer = viewport.innerText;
+  const updateViewport = function(userInput,pressedClear) {
+    let viewportBuffer = "";
+    viewportBuffer = viewport.innerText;
     if (userInput === "←") { 
       if (viewportBuffer.length === 1 || (viewportBuffer.length === 2 && viewportBuffer.startsWith("-"))) { 
         viewport.innerText = "0";
@@ -63,8 +77,9 @@
       }
     }
 
-    if (resetState) { 
-      viewport.innerText = "0";
+    if (pressedClear) { 
+      // viewport.innerText = "0";
+      reset();
       return;
     }
     else {
@@ -75,24 +90,48 @@
         return;
       }
       else if (userInput === "÷") {
-        resultBuffer = +viewportBuffer;
+        console.log(`resultBuf: ${resultBuffer}, viewportBuffer: ${resultBuffer}, resetState: ${resetState}`)
+        if (resetState){
+          resultBuffer = +viewportBuffer;
+          resetState = false;
+        }
+        else{
+          operate("÷", resultBuffer, +viewportBuffer);
+        }
         // ADD .clicked status
-
-        // console.log(`resultBuffer: ${resultBuffer} typeof: ${typeof resultBuffer}`);
+        viewport.innerText = "0";
         return;
       }
       else if (userInput === "×") { 
-        console.log("multiply");
+        operate("×",+viewportBuffer);
+        viewport.innerText = "0";
         return;
       }
       else if (userInput === "-") {
-        console.log("subtract");
+        operate("-",+viewportBuffer);
+        viewport.innerText = "0";
         return;
       }
       else if (userInput === "+") {
+        currentOperator = "+";
+        if (resetState){
+          resultBuffer = +viewportBuffer;
+          resetState = false;
+          displayAfterOperate = true;
+        }
+        else{
+          operate(currentOperator, resultBuffer, +viewportBuffer);
+          // viewport.innerText = "";
+          // viewport.innerText = resultBuffer.toString();
+        }
+        // console.log(`resultBuf: ${resultBuffer}, viewportBuffer: ${resultBuffer}, resetState: ${resetState},viewport.innerText ${viewport.innerText}`)
+        // ADD .clicked status
+        return;
+      }
+      else if (userInput === "=") {
         // console.log("add"); 
-        operate("+",+viewportBuffer);
-        viewport.innerText = "0";
+        operate(currentOperator,resultBuffer,+viewportBuffer);
+        viewport.innerText = resultBuffer.toString();
         return;
       }
 
@@ -109,13 +148,18 @@
   };
 
   const registerClick = function(e) {
-    let resetState = true;
-
+    let pressedClear = false;
+    // console.log(`registerClick: ${e.target.innerText}, ${resetState}`)
     e.target.classList.add('clicked');
-    if (e.target.innerText !== "C") {
-      resetState = false;
+    if (e.target.innerText === "C") {
+      pressedClear = true;
     }
-    updateViewport(e.target.innerText,resetState)
+      console.log(displayAfterOperate);
+    if (displayAfterOperate){
+      viewport.innerText = "";
+      displayAfterOperate = false;
+    }
+    updateViewport(e.target.innerText,pressedClear);
     return 0;
   };
 
@@ -204,6 +248,7 @@
   };
 
 
+  reset();
   const buttons = Array.from(document.querySelectorAll('.button'));
   buttons.forEach(button => button.addEventListener('click',registerClick));
   buttons.forEach(button => button.addEventListener('transitionend',removeTransition));
