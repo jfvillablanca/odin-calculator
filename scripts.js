@@ -108,46 +108,73 @@ const registerClick = function(e) {
 
 const registerKey = function(e) {
   e.preventDefault(); // Suppress default keybindings of browser e.g. "/" Quick Find
+  const resetState = true;
 
   // keyPress = document.querySelector(`.button`);
   // const keyClear = document.querySelector(".clear");
-  const keyBackspace = document.querySelector(".backspace");
-  // const keyPlusMinus = document.querySelector(".plusminus");
-  const keyDivision = document.querySelector(".division");
-  const keySeven = document.querySelector(".seven");
-  const keyEight = document.querySelector(".eight");
-  const keyNine = document.querySelector(".nine");
-  const keyMultiplication = document.querySelector(".multiplication");
-  const keyFour = document.querySelector(".four");
-  const keyFive = document.querySelector(".five");
-  const keySix = document.querySelector(".six");
-  const keySubtraction = document.querySelector(".subtraction");
-  const keyOne = document.querySelector(".one");
-  const keyTwo = document.querySelector(".two");
-  const keyThree = document.querySelector(".three");
-  const keyAddition = document.querySelector(".addition");
-  const keyDecimal = document.querySelector(".decimal");
-  const keyZero = document.querySelector(".zero");
-  const keyEqualSign = document.querySelector(".equalsign");
+  // const keyBackspace = document.querySelector(".backspace");
+  // // const keyPlusMinus = document.querySelector(".plusminus");
+  // const keyDivision = document.querySelector(".division");
+  // const keySeven = document.querySelector(".seven");
+  // const keyEight = document.querySelector(".eight");
+  // const keyNine = document.querySelector(".nine");
+  // const keyMultiplication = document.querySelector(".multiplication");
+  // const keyFour = document.querySelector(".four");
+  // const keyFive = document.querySelector(".five");
+  // const keySix = document.querySelector(".six");
+  // const keySubtraction = document.querySelector(".subtraction");
+  // const keyOne = document.querySelector(".one");
+  // const keyTwo = document.querySelector(".two");
+  // const keyThree = document.querySelector(".three");
+  // const keyAddition = document.querySelector(".addition");
+  // const keyDecimal = document.querySelector(".decimal");
+  // const keyZero = document.querySelector(".zero");
+  // const keyEqualSign = document.querySelector(".equalsign");
   
   // console.log(`${e.key}`);
-  if (e.key === "Backspace"){ keyBackspace.classList.add('clicked'); }
-  if (e.key === "/"){ keyDivision.classList.add('clicked'); }
-  if (e.key === "7"){ keySeven.classList.add('clicked'); }
-  if (e.key === "8"){ keyEight.classList.add('clicked'); }
-  if (e.key === "9"){ keyNine.classList.add('clicked'); }
-  if (e.key === "*"){ keyMultiplication.classList.add('clicked'); }
-  if (e.key === "4"){ keyFour.classList.add('clicked'); }
-  if (e.key === "5"){ keyFive.classList.add('clicked'); }
-  if (e.key === "6"){ keySix.classList.add('clicked'); }
-  if (e.key === "-"){ keySubtraction.classList.add('clicked'); }
-  if (e.key === "1"){ keyOne.classList.add('clicked'); }
-  if (e.key === "2"){ keyTwo.classList.add('clicked'); }
-  if (e.key === "3"){ keyThree.classList.add('clicked'); }
-  if (e.key === "+"){ keyAddition.classList.add('clicked'); }
-  if (e.key === "."){ keyDecimal.classList.add('clicked'); }
-  if (e.key === "0"){ keyZero.classList.add('clicked'); }
-  if (e.key === "Enter"){ keyEqualSign.classList.add('clicked'); }
+  // if (e.key === "Backspace"){ keyBackspace.classList.add('clicked'); }
+  // if (e.key === "/"){ keyDivision.classList.add('clicked'); }
+  // if (e.key === "7"){ keySeven.classList.add('clicked'); }
+  // if (e.key === "8"){ keyEight.classList.add('clicked'); }
+  // if (e.key === "9"){ keyNine.classList.add('clicked'); }
+  // if (e.key === "*"){ keyMultiplication.classList.add('clicked'); }
+  // if (e.key === "4"){ keyFour.classList.add('clicked'); }
+  // if (e.key === "5"){ keyFive.classList.add('clicked'); }
+  // if (e.key === "6"){ keySix.classList.add('clicked'); }
+  // if (e.key === "-"){ keySubtraction.classList.add('clicked'); }
+  // if (e.key === "1"){ keyOne.classList.add('clicked'); }
+  // if (e.key === "2"){ keyTwo.classList.add('clicked'); }
+  // if (e.key === "3"){ keyThree.classList.add('clicked'); }
+  // if (e.key === "+"){ keyAddition.classList.add('clicked'); }
+  // if (e.key === "."){ keyDecimal.classList.add('clicked'); }
+  // if (e.key === "0"){ keyZero.classList.add('clicked'); }
+  // if (e.key === "Enter"){
+  //   keyEqualSign.classList.add('clicked'); 
+  //   // console.log(keyEqualSign.innerText);
+  // }
+
+  const keyDivs = Array.from(document.querySelectorAll('.button'));
+  keyDivs.forEach(keyDiv => {
+    if (e.key === "Backspace" && keyDiv.innerText === "←"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "/" && keyDiv.innerText === "÷"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "7" && keyDiv.innerText === "7"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "8" && keyDiv.innerText === "8"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "9" && keyDiv.innerText === "9"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "*" && keyDiv.innerText === "×"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "4" && keyDiv.innerText === "4"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "5" && keyDiv.innerText === "5"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "6" && keyDiv.innerText === "6"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "-" && keyDiv.innerText === "-"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "1" && keyDiv.innerText === "1"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "2" && keyDiv.innerText === "2"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "3" && keyDiv.innerText === "3"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "+" && keyDiv.innerText === "+"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "." && keyDiv.innerText === "."){ keyDiv.classList.add('clicked'); }
+    if (e.key === "0" && keyDiv.innerText === "0"){ keyDiv.classList.add('clicked'); }
+    if (e.key === "Enter" && keyDiv.innerText === "="){ keyDiv.classList.add('clicked'); }
+    updateViewport(keyDiv.innerText,resetState);
+  });
+
 };
 
 const removeTransition = function(e) {
