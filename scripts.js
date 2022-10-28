@@ -83,6 +83,7 @@
       return;
     }
     else {
+
       if (userInput === "±") { 
         (viewportBuffer.startsWith("-")) 
           ? viewport.innerText = viewportBuffer.substring(1,viewportBuffer.length)
@@ -90,27 +91,43 @@
         return;
       }
       else if (userInput === "÷") {
-        console.log(`resultBuf: ${resultBuffer}, viewportBuffer: ${resultBuffer}, resetState: ${resetState}`)
+        currentOperator = "÷";
         if (resetState){
           resultBuffer = +viewportBuffer;
           resetState = false;
+          displayAfterOperate = true;
         }
         else{
-          operate("÷", resultBuffer, +viewportBuffer);
+          operate(currentOperator, resultBuffer, +viewportBuffer);
         }
         // ADD .clicked status
-        viewport.innerText = "0";
-        return;
+        return 0;
       }
       else if (userInput === "×") { 
-        operate("×",+viewportBuffer);
-        viewport.innerText = "0";
-        return;
+        currentOperator = "×";
+        if (resetState){
+          resultBuffer = +viewportBuffer;
+          resetState = false;
+          displayAfterOperate = true;
+        }
+        else{
+          operate(currentOperator, resultBuffer, +viewportBuffer);
+        }
+        // ADD .clicked status
+        return 0;
       }
       else if (userInput === "-") {
-        operate("-",+viewportBuffer);
-        viewport.innerText = "0";
-        return;
+        currentOperator = "-";
+        if (resetState){
+          resultBuffer = +viewportBuffer;
+          resetState = false;
+          displayAfterOperate = true;
+        }
+        else{
+          operate(currentOperator, resultBuffer, +viewportBuffer);
+        }
+        // ADD .clicked status
+        return 0;
       }
       else if (userInput === "+") {
         currentOperator = "+";
@@ -121,28 +138,23 @@
         }
         else{
           operate(currentOperator, resultBuffer, +viewportBuffer);
-          // viewport.innerText = "";
-          // viewport.innerText = resultBuffer.toString();
         }
-        // console.log(`resultBuf: ${resultBuffer}, viewportBuffer: ${resultBuffer}, resetState: ${resetState},viewport.innerText ${viewport.innerText}`)
         // ADD .clicked status
-        return;
+        return 0;
       }
       else if (userInput === "=") {
-        // console.log("add"); 
-        operate(currentOperator,resultBuffer,+viewportBuffer);
-        viewport.innerText = resultBuffer.toString();
         return;
       }
-
       if (viewportBuffer.includes(".") && userInput === ".") { //Ensure single decimal point in buffer
         viewport.innerText = viewportBuffer;
         return;
       }
+
       if (viewportBuffer.length !== 15) { //Prevents text overflow. Text will still overflow for small screens; the value is arbitrary and does not follow responsive design 
         viewport.innerText = `${viewportBuffer}${userInput}`; 
         return;
       }
+
     }
     return 0;
   };
