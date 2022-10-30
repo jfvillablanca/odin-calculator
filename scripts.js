@@ -7,6 +7,7 @@
 (function(){
   let resultBuffer = 0; //Store current operand in the viewport here
   let currentOperator = "+"; // Since 0 is the initial value, the initial number input will be ADDED to 0, and is, technically, the first operation
+  let queuedOperator = "+"; 
   let resetState = true;
   let displayAfterOperate = false;
   viewport = document.querySelector('.calc-viewport');
@@ -83,6 +84,21 @@
       return;
     }
     else {
+      if (viewportBuffer.includes(".") && userInput === ".") { //Ensure single decimal point in buffer
+        viewport.innerText = viewportBuffer;
+        return;
+      }
+
+      if (viewportBuffer.length !== 15 &&
+         (userInput !== "±" && 
+          userInput !== "÷" && 
+          userInput !== "×" && 
+          userInput !== "-" && 
+          userInput !== "+" && 
+          userInput !== "=")) { //Prevents text overflow. Text will still overflow for small screens; the value is arbitrary and does not follow responsive design 
+        viewport.innerText = `${viewportBuffer}${userInput}`; 
+        return;
+      }
 
       if (userInput === "±") { 
         (viewportBuffer.startsWith("-")) 
@@ -90,8 +106,11 @@
           : viewport.innerText = `-${viewportBuffer}`;
         return;
       }
-      else if (userInput === "÷") {
-        currentOperator = "÷";
+      else if (userInput === "÷" ||
+        userInput === "×" ||
+        userInput === "-" ||
+        userInput === "+" ||
+        userInput === "="){
         if (resetState){
           resultBuffer = +viewportBuffer;
           resetState = false;
@@ -100,61 +119,25 @@
         else{
           operate(currentOperator, resultBuffer, +viewportBuffer);
         }
-        // ADD .clicked status
-        return 0;
-      }
-      else if (userInput === "×") { 
-        currentOperator = "×";
-        if (resetState){
-          resultBuffer = +viewportBuffer;
-          resetState = false;
-          displayAfterOperate = true;
-        }
-        else{
-          operate(currentOperator, resultBuffer, +viewportBuffer);
-        }
-        // ADD .clicked status
-        return 0;
-      }
-      else if (userInput === "-") {
-        currentOperator = "-";
-        if (resetState){
-          resultBuffer = +viewportBuffer;
-          resetState = false;
-          displayAfterOperate = true;
-        }
-        else{
-          operate(currentOperator, resultBuffer, +viewportBuffer);
-        }
-        // ADD .clicked status
-        return 0;
-      }
-      else if (userInput === "+") {
-        currentOperator = "+";
-        if (resetState){
-          resultBuffer = +viewportBuffer;
-          resetState = false;
-          displayAfterOperate = true;
-        }
-        else{
-          operate(currentOperator, resultBuffer, +viewportBuffer);
-        }
-        // ADD .clicked status
-        return 0;
-      }
-      else if (userInput === "=") {
-        return;
-      }
-      if (viewportBuffer.includes(".") && userInput === ".") { //Ensure single decimal point in buffer
-        viewport.innerText = viewportBuffer;
-        return;
-      }
 
-      if (viewportBuffer.length !== 15) { //Prevents text overflow. Text will still overflow for small screens; the value is arbitrary and does not follow responsive design 
-        viewport.innerText = `${viewportBuffer}${userInput}`; 
-        return;
+        if (userInput === "÷") {
+          currentOperator = "÷";
+        }
+        else if (userInput === "×") { 
+          currentOperator = "×";
+        }
+        else if (userInput === "-") {
+          currentOperator = "-";
+        }
+        else if (userInput === "+") {
+          currentOperator = "+";
+        }
+        // else if (userInput === "=") {
+        //   operate(currentOperator, resultBuffer, +viewportBuffer);
+        //   return;
+        // }
+        return 0;
       }
-
     }
     return 0;
   };
