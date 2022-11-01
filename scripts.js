@@ -7,16 +7,16 @@
 (function(){
   let resultBuffer = 0; //Store current operand in the viewport here
   let currentOperator = "+"; // Since 0 is the initial value, the initial number input will be ADDED to 0, and is, technically, the first operation
-  let queuedOperator = "+"; 
   let resetState = true;
   let displayAfterOperate = false;
   viewport = document.querySelector('.calc-viewport');
 
   const reset = function(){
     resetState = true; //reset to fresh operation, clear buffer, aka CE
-    resultBuffer = 0;
-    currentOperation = "+"; 
-    viewport.innerText = "0";
+    // resultBuffer = 0;
+    currentOperator = "+"; 
+      // viewport.innerText = "0";
+    return;
   }
 
   const operate = function (operation, op1, op2){
@@ -30,6 +30,7 @@
     else if (operation === "×"){
       resultBuffer = op1 * op2;
     }
+    
     else if (operation === "÷"){
       resultBuffer = op1 / op2;
     }
@@ -81,6 +82,7 @@
     if (pressedClear) { 
       // viewport.innerText = "0";
       reset();
+      viewport.innerText = "0";
       return;
     }
     else {
@@ -122,26 +124,28 @@
 
         if (userInput === "÷") {
           currentOperator = "÷";
+          return 0;
         }
         else if (userInput === "×") { 
           currentOperator = "×";
+          return 0;
         }
         else if (userInput === "-") {
           currentOperator = "-";
+          return 0;
         }
         else if (userInput === "+") {
           currentOperator = "+";
+          return 0;
         }
-        // else if (userInput === "=") {
-        //   operate(currentOperator, resultBuffer, +viewportBuffer);
-        //   return;
-        // }
-        return 0;
+        else if (userInput === "=") {
+          // reset();
+          console.log(`resultBuffer: ${resultBuffer}, viewportBuffer: ${viewportBuffer}`);
+          return 0;
+        }
       }
-    }
-    return 0;
+    };
   };
-
   const registerClick = function(e) {
     let pressedClear = false;
     // console.log(`registerClick: ${e.target.innerText}, ${resetState}`)
@@ -244,6 +248,7 @@
 
 
   reset();
+  viewport.innerText = "0";
   const buttons = Array.from(document.querySelectorAll('.button'));
   buttons.forEach(button => button.addEventListener('click',registerClick));
   buttons.forEach(button => button.addEventListener('transitionend',removeTransition));

@@ -2,6 +2,7 @@
 html {
   display: flex;
   justify-content: center;
+  /* height: 100vh; */
 
   --darkgruv-bg-h: #1d2021;
   --darkgruv-bg: #282828;
@@ -51,6 +52,16 @@ body {
   font-size: 1.5rem;
 
   user-select: none;
+}
+
+.footer {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  background-color: var(--darkgruv-bg);
+  text-align: center;
+  font-size: 11px;
 }
 
 .calc-viewport {
